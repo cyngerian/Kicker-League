@@ -64,11 +64,17 @@ def extract_play_data(play):
         'unprocessed': unprocessed
     })
 
-# Load the CSV data
+# Read the CSV file
 df = pd.read_csv('punts_since_2019.csv')
 
 # Apply the function to the 'Detail' column
 df_play_data = df['Detail'].apply(extract_play_data)
 
+# Insert the 'Detail' column at the beginning of the DataFrame
+df_play_data.insert(0, 'Detail', df['Detail'])
+
+# Save the DataFrame to a new CSV file
 df_play_data.to_csv('punts_play_data.csv', index=False)
+
+# Print the DataFrame for debugging purposes
 print(df_play_data)
